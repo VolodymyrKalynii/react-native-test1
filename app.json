@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "testcd",
+    "name": "CatTest",
     "slug": "test",
     "privacy": "public",
     "sdkVersion": "34.0.0",
@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "0.1.2-beta",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,6 +25,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.cattest.myapp"
     }
   }
 }
