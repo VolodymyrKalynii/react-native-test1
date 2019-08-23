@@ -12,8 +12,11 @@ export const styles = StyleSheet.create({
         },
         elevation: 2,
         // position: 'relative'
+        paddingTop: 20
     },
     title: {
-        fontSize: 30
+        fontSize: 30,
+        fontFamily: 'sans-serif-thin',
+        // fontWeight: 'bold'
     }
 });

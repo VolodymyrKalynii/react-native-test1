@@ -8,7 +8,6 @@ import {LocalizationTexts} from '../../localization';
 
 import {styles} from './styles';
 
-
 export class Title extends React.Component{
     constructor(props) {
         super(props);
