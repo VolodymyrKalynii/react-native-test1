@@ -42,7 +42,7 @@ export class ImgBlock extends React.Component<Props> {
             onPanResponderGrant: async (evt, gestureState) => {
                 // The gesture has started. Show visual feedback so the user knows
                 // what is happening!
-                console.log('gesture has started');
+                // console.log('gesture has started');
                 // await this.startPlaying();
                 // gestureState.d{x,y} will be set to zero now
             },
@@ -102,7 +102,7 @@ export class ImgBlock extends React.Component<Props> {
     };
 
     componentDidMount = async () => {
-        await this.soundObject.loadAsync(require('../../sound/cat1.mp3'));
+        await this.soundObject.loadAsync(require('../../sound/victory.mp3'));
 
         this.myComponent.measure((fx, fy, width, height, px, py) => {
             this.startXPosition = px;

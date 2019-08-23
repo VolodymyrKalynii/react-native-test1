@@ -12,7 +12,7 @@ export class Title extends React.Component{
     constructor(props) {
         super(props);
 
-        console.log(LocalizationTexts.getLocale());
+        // console.log(LocalizationTexts.getLocale());
     }
 
     render() {
