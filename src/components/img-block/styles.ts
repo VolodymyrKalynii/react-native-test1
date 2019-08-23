@@ -10,9 +10,6 @@ export const styles = StyleSheet.create({
     img: {
         backgroundColor: 'red',
         width: Dimensions.get('window').width / 1.1,
-        height: Dimensions.get('window').height /  1.1
-    },
-    title: {
-        fontSize: 50
+        height: Dimensions.get('window').height /  1.2
     }
 });

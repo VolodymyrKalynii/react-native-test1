@@ -52,7 +52,7 @@ export class ImgBlock extends React.Component<Props> {
                 if (this.interval)
                     clearTimeout(this.interval);
 
-                console.log(gestureState);
+                // console.log(gestureState);
 
                 this.interval = setTimeout(async () => {
                     await this.pausePlaying();
@@ -84,7 +84,7 @@ export class ImgBlock extends React.Component<Props> {
     private startPlaying = async () => {
         if (this.playbackStatus.isLoaded) {
             if (!this.playbackStatus.isPlaying) {
-                console.log('start');
+                // console.log('start');
                 await this.soundObject.playAsync();
             }
         }
