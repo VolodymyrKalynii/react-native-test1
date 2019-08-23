@@ -1,0 +1,5 @@
+export enum ActionTypes {
+    CHANGE_MODE = 'CHANGE_MODE',
+    SHOW_PRELOADER = 'SHOW_PRELOADER',
+    HIDE_PRELOADER = 'HIDE_PRELOADER'
+};
