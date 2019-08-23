@@ -1,0 +1,1 @@
+export {LocalizationTexts} from './localization';

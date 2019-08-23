@@ -8,17 +8,17 @@ import {Container} from 'native-base';
 
 import {store} from '../../redux/store';
 import {ImgBlock} from '../img-block';
-import {styles} from './styles';
+import {Title} from '../title';
 import {Loader} from '../loader';
+
+import {styles} from './styles';
 
 export const App = () =>
     <Provider store={store}>
         <Container>
             <Loader/>
             <View style={styles.wrapper}>
-                <View style={styles.container}>
-                    <Text style={styles.title}>Погладь кота</Text>
-                </View>
+                <Title/>
                 <ImgBlock/>
             </View>
         </Container>
