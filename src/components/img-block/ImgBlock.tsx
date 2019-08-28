@@ -34,28 +34,8 @@ export class ImgBlock extends React.Component<Props> {
         this.panResponder = PanResponder.create({
             // Ask to be the responder:
             onStartShouldSetPanResponder: (evt, gestureState) => true,
-            // onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-            // onMoveShouldSetPanResponder: (evt, gestureState) => true,
-            // onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-
-            onPanResponderGrant: async (evt, gestureState) => {
-                // The gesture has started. Show visual feedback so the user knows
-                // what is happening!
-                // console.log('gesture has started');
-                // await this.startPlaying();
-                // gestureState.d{x,y} will be set to zero now
-            },
             onPanResponderMove: async (evt, gestureState) => {
                 const isPointerOutOfElement = this.checkIsPointerOutOfElement(gestureState);
-
-                // if (this.userHangOffTouchTimeout)
-                //     clearTimeout(this.userHangOffTouchTimeout);
-                //
-                // // console.log(gestureState);
-                //
-                // this.userHangOffTouchTimeout = setTimeout(async () => {
-                //     await this.pausePlaying();
-                // }, 2000);
 
                 this.runCheckingUserHangOffTouch();
 
@@ -66,13 +46,8 @@ export class ImgBlock extends React.Component<Props> {
                 else
                     await this.startPlaying();
             },
-            // onPanResponderRelease: async (evt, gestureState) => {
-            //     console.log('onPanResponderRelease');
-            //     await this.stopPlaying();
-            // },
         });
     }
-
 
     private runCheckingUserHangOffTouch = () => {
         if (this.userHangOffTouchTimeout)
@@ -95,12 +70,9 @@ export class ImgBlock extends React.Component<Props> {
             const {volume} = this.playbackStatus;
             const newVolume = +volume.toFixed(1) - 0.1;
 
-
-            if (newVolume > 0) {
-                await this.setVolume(newVolume);
-            } else {
-                await this.finishSoundDowning()
-            }
+            newVolume > 0
+                ? await this.setVolume(newVolume)
+                : await this.finishSoundDowning();
         }, 500);
     };
 
