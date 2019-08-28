@@ -7,10 +7,10 @@ import {
 } from 'react-native';
 import {Audio} from 'expo-av';
 
+import {hidePreloader} from '../../redux/dispatchers';
 import {styles} from './styles';
 
 import {PlaybackStatus} from 'expo-av/build/AV';
-import {hidePreloader} from '../../redux/dispatchers';
 
 type Props = {};
 
@@ -23,14 +23,13 @@ export class ImgBlock extends React.Component<Props> {
     private endYPosition:number;
     private myComponent:any;
     private readonly soundObject = new Audio.Sound();
-    private interval = null;
+    private userHangOffTouchTimeout = null;
+    private soundDowningInterval = null;
 
     constructor(props) {
         super(props);
 
         this.soundObject.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
-
-        // console.log(this.playbackStatus.isLoaded);
 
         this.panResponder = PanResponder.create({
             // Ask to be the responder:
@@ -49,30 +48,69 @@ export class ImgBlock extends React.Component<Props> {
             onPanResponderMove: async (evt, gestureState) => {
                 const isPointerOutOfElement = this.checkIsPointerOutOfElement(gestureState);
 
-                if (this.interval)
-                    clearTimeout(this.interval);
+                // if (this.userHangOffTouchTimeout)
+                //     clearTimeout(this.userHangOffTouchTimeout);
+                //
+                // // console.log(gestureState);
+                //
+                // this.userHangOffTouchTimeout = setTimeout(async () => {
+                //     await this.pausePlaying();
+                // }, 2000);
 
-                // console.log(gestureState);
-
-                this.interval = setTimeout(async () => {
-                    await this.pausePlaying();
-                }, 2000);
+                this.runCheckingUserHangOffTouch();
 
                 if (isPointerOutOfElement)
-                    await this.pausePlaying();
+                    this.userHangOffTouchTimeout = setTimeout(async () => {
+                        await this.pausePlaying();
+                    }, 2000);
                 else
                     await this.startPlaying();
             },
-            onPanResponderRelease: async (evt, gestureState) => {
-                await this.stopPlaying();
-            },
+            // onPanResponderRelease: async (evt, gestureState) => {
+            //     console.log('onPanResponderRelease');
+            //     await this.stopPlaying();
+            // },
         });
     }
+
+
+    private runCheckingUserHangOffTouch = () => {
+        if (this.userHangOffTouchTimeout)
+            clearTimeout(this.userHangOffTouchTimeout);
+
+        this.userHangOffTouchTimeout = setTimeout(async () => {
+            await this.pausePlaying();
+        }, 2000);
+    };
 
     private pausePlaying = async () => {
         if (this.playbackStatus.isLoaded)
             if (this.playbackStatus.isPlaying)
-                await this.soundObject.pauseAsync();
+                this.startPausingAudio();
+    };
+
+    private startPausingAudio = () => {
+        this.soundDowningInterval = setInterval(async () => {
+            // @ts-ignore
+            const {volume} = this.playbackStatus;
+            const newVolume = +volume.toFixed(1) - 0.1;
+
+
+            if (newVolume > 0) {
+                await this.setVolume(newVolume);
+            } else {
+                await this.finishSoundDowning()
+            }
+        }, 500);
+    };
+
+    private setVolume = async (volume) => {
+        await this.soundObject.setVolumeAsync(volume);
+    };
+
+    private finishSoundDowning = async () => {
+        await this.soundObject.stopAsync();
+        clearInterval(this.soundDowningInterval);
     };
 
     private stopPlaying = async () => {
@@ -84,7 +122,7 @@ export class ImgBlock extends React.Component<Props> {
     private startPlaying = async () => {
         if (this.playbackStatus.isLoaded) {
             if (!this.playbackStatus.isPlaying) {
-                // console.log('start');
+                await this.soundObject.setVolumeAsync(1);
                 await this.soundObject.playAsync();
             }
         }
@@ -102,7 +140,7 @@ export class ImgBlock extends React.Component<Props> {
     };
 
     componentDidMount = async () => {
-        await this.soundObject.loadAsync(require('../../sound/victory.mp3'));
+        await this.soundObject.loadAsync(require('../../sound/cat.mp3'));
 
         this.myComponent.measure((fx, fy, width, height, px, py) => {
             this.startXPosition = px;
@@ -130,3 +168,5 @@ export class ImgBlock extends React.Component<Props> {
         </View>;
     }
 }
+
+
