@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "0.1.4-beta",
+    "version": "0.1.6-beta",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "updates": {

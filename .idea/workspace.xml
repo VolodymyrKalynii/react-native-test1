@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7db93ac9-1c51-4524-b029-ab06963c6755" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/img-block/ImgBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/img-block/ImgBlock.tsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,14 +33,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="2" />
-          <entry key="json" value="248" />
+          <entry key="json" value="252" />
           <entry key="ts" value="1544" />
           <entry key="tsx" value="3602" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="219" />
+          <entry key="JSON" value="223" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="TypeScript" value="1544" />
           <entry key="TypeScript JSX" value="3602" />
@@ -73,7 +72,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.7481796">
+    <splitter split-orientation="horizontal" split-proportion="0.6201456">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -85,11 +84,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/img-block/ImgBlock.tsx">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="410">
-                  <caret line="74" column="50" selection-start-line="74" selection-start-column="50" selection-end-line="74" selection-end-column="50" />
+                <state relative-caret-position="-84">
+                  <caret line="43" column="47" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="47" />
                   <folding>
                     <element signature="e#0#26#0" expanded="true" />
                   </folding>
@@ -123,11 +122,11 @@
               <provider selected="true" editor-type-id="text-editor" />
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/.expo/settings.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="182">
-                  <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+                <state relative-caret-position="26">
+                  <caret line="1" column="20" lean-forward="true" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
                 </state>
               </provider>
             </entry>
@@ -148,7 +147,7 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/package.json">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="598">
@@ -157,20 +156,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/tsconfig.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="52">
-                  <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="29" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="494">
-                  <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+                <state relative-caret-position="286">
+                  <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
                 </state>
               </provider>
             </entry>
@@ -256,10 +246,10 @@
         <option value="$PROJECT_DIR$/src/components/title/Title.tsx" />
         <option value="$PROJECT_DIR$/src/localization/localization.ts" />
         <option value="$PROJECT_DIR$/src/components/loader/Loader.tsx" />
-        <option value="$PROJECT_DIR$/app.json" />
-        <option value="$PROJECT_DIR$/.expo/settings.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/components/img-block/ImgBlock.tsx" />
+        <option value="$PROJECT_DIR$/.expo/settings.json" />
+        <option value="$PROJECT_DIR$/app.json" />
       </list>
     </option>
   </component>
@@ -409,12 +399,12 @@
       <workItem from="1566539968061" duration="18603000" />
       <workItem from="1566885837987" duration="1684000" />
       <workItem from="1566905064665" duration="3040000" />
-      <workItem from="1566972046497" duration="10929000" />
+      <workItem from="1566972046497" duration="11002000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81745000" />
+    <option name="totallyTimeSpent" value="81818000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1066" extended-state="6" />
@@ -633,13 +623,6 @@
     <entry file="file://$PROJECT_DIR$/src/redux/actions/index.ts">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/tsconfig.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/icon.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -701,30 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.expo/packager-info.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.expo/settings.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/loader/Loader.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -741,11 +700,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/img-block/ImgBlock.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="74" column="50" selection-start-line="74" selection-start-column="50" selection-end-line="74" selection-end-column="50" />
+        <state relative-caret-position="-84">
+          <caret line="43" column="47" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="47" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.expo/packager-info.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.expo/settings.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="1" column="20" lean-forward="true" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tsconfig.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
         </state>
       </provider>
     </entry>
