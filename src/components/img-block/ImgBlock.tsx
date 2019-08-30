@@ -25,6 +25,7 @@ export class ImgBlock extends React.Component<Props> {
     private readonly soundObject = new Audio.Sound();
     private userHangOffTouchTimeout = null;
     private soundDowningInterval = null;
+    private isPausingStarted = false;
 
     constructor(props) {
         super(props);
@@ -32,19 +33,17 @@ export class ImgBlock extends React.Component<Props> {
         this.soundObject.setOnPlaybackStatusUpdate(this.onPlaybackStatusUpdate);
 
         this.panResponder = PanResponder.create({
-            // Ask to be the responder:
-            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onStartShouldSetPanResponder: () => true,
             onPanResponderMove: async (evt, gestureState) => {
                 const isPointerOutOfElement = this.checkIsPointerOutOfElement(gestureState);
 
+                // console.log(gestureState);
+
                 this.runCheckingUserHangOffTouch();
 
-                if (isPointerOutOfElement)
-                    this.userHangOffTouchTimeout = setTimeout(async () => {
-                        await this.pausePlaying();
-                    }, 2000);
-                else
-                    await this.startPlaying();
+                isPointerOutOfElement
+                    ? await this.pausePlaying()
+                    : await this.startPlaying();
             },
         });
     }
@@ -55,25 +54,33 @@ export class ImgBlock extends React.Component<Props> {
 
         this.userHangOffTouchTimeout = setTimeout(async () => {
             await this.pausePlaying();
-        }, 2000);
+        }, 1000);
     };
 
     private pausePlaying = async () => {
         if (this.playbackStatus.isLoaded)
-            if (this.playbackStatus.isPlaying)
+            if (this.playbackStatus.isPlaying && !this.isPausingStarted)
                 this.startPausingAudio();
     };
 
     private startPausingAudio = () => {
         this.soundDowningInterval = setInterval(async () => {
-            // @ts-ignore
-            const {volume} = this.playbackStatus;
-            const newVolume = +volume.toFixed(1) - 0.1;
+            const newVolume = this.getNewVolume();
 
             newVolume > 0
                 ? await this.setVolume(newVolume)
                 : await this.finishSoundDowning();
         }, 500);
+
+        this.isPausingStarted = true;
+
+    };
+
+    private getNewVolume = () => {
+        // @ts-ignore
+        const {volume} = this.playbackStatus;
+
+        return +volume.toFixed(1) - 0.1;
     };
 
     private setVolume = async (volume) => {
@@ -81,8 +88,9 @@ export class ImgBlock extends React.Component<Props> {
     };
 
     private finishSoundDowning = async () => {
-        await this.soundObject.stopAsync();
         clearInterval(this.soundDowningInterval);
+        await this.soundObject.stopAsync();
+        this.isPausingStarted = false;
     };
 
     private stopPlaying = async () => {
@@ -92,12 +100,11 @@ export class ImgBlock extends React.Component<Props> {
     };
 
     private startPlaying = async () => {
-        if (this.playbackStatus.isLoaded) {
+        if (this.playbackStatus.isLoaded)
             if (!this.playbackStatus.isPlaying) {
                 await this.soundObject.setVolumeAsync(1);
                 await this.soundObject.playAsync();
             }
-        }
     };
 
     private onPlaybackStatusUpdate = async (playbackStatus) => {
@@ -111,9 +118,17 @@ export class ImgBlock extends React.Component<Props> {
             moveY < this.startYPosition || moveY > this.endYPosition
     };
 
-    componentDidMount = async () => {
+    async componentDidMount() {
         await this.soundObject.loadAsync(require('../../sound/cat.mp3'));
 
+        this.getElementPosition();
+
+        setTimeout(() => {
+            hidePreloader();
+        }, 500);
+    };
+
+    private getElementPosition = () => {
         this.myComponent.measure((fx, fy, width, height, px, py) => {
             this.startXPosition = px;
             this.startYPosition = py;
@@ -121,10 +136,6 @@ export class ImgBlock extends React.Component<Props> {
             this.endXPosition = px + width;
             this.endYPosition = py + height;
         });
-
-        setTimeout(() => {
-            hidePreloader();
-        }, 500);
     };
 
     render() {
