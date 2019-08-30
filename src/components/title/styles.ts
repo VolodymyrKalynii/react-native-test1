@@ -11,10 +11,10 @@ export const styles = StyleSheet.create({
             height: 2
         },
         elevation: 2,
-        paddingTop: 20
+        paddingTop: 25
     },
     title: {
         fontSize: 30,
-        fontFamily: 'sans-serif-thin',
+        fontFamily: 'Roboto',
     }
 });

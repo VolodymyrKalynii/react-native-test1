@@ -8,10 +8,11 @@ import {
 import {Audio} from 'expo-av';
 
 import {hidePreloader} from 'red/dispatchers';
-import {getElementPosition} from './utils';
+import {getElementPosition, checkIsPointerOutOfElement} from './utils';
 import {styles} from './styles';
 
 import {PlaybackStatus} from 'expo-av/build/AV';
+import {Positions} from './types';
 
 type Props = {};
 
@@ -23,12 +24,7 @@ export class ImgBlock extends React.Component<Props> {
     private userHangOffTouchTimeout = null;
     private soundDowningInterval = null;
     private isPausingStarted = false;
-    private positions = {
-        startXPosition: null,
-        startYPosition: null,
-        endXPosition: null,
-        endYPosition: null
-    };
+    private positions:Positions;
 
     constructor(props) {
         super(props);
@@ -40,6 +36,12 @@ export class ImgBlock extends React.Component<Props> {
             onPanResponderMove: this.onPanResponderMove
         });
     }
+
+    async componentDidMount() {
+        await this.loadSound();
+        this.getElementPosition();
+        this.startHidingPreloader();
+    };
 
     render() {
         return <View style={styles.container}>
@@ -54,28 +56,12 @@ export class ImgBlock extends React.Component<Props> {
         </View>;
     }
 
-    async componentDidMount() {
-        await this.loadSound();
-        this.getElementPosition();
-        this.startHidingPreloader();
-    };
-
-    private loadSound = async () => {
-        await this.soundObject.loadAsync(require('_sound/cat.mp3'));
-    };
-
-    private getElementPosition = () => {
-        this.positions = getElementPosition(this.component);
-    };
-
-    private startHidingPreloader = () => {
-        setTimeout(() => {
-            hidePreloader();
-        }, 500);
+    private onPlaybackStatusUpdate = async (playbackStatus) => {
+        this.playbackStatus = playbackStatus;
     };
 
     private onPanResponderMove = async (evt, gestureState) => {
-        const isPointerOutOfElement = this.checkIsPointerOutOfElement(gestureState);
+        const isPointerOutOfElement = checkIsPointerOutOfElement(gestureState, this.positions);
 
         this.runCheckingUserHangOffTouch();
 
@@ -142,16 +128,18 @@ export class ImgBlock extends React.Component<Props> {
             }
     };
 
-    private onPlaybackStatusUpdate = async (playbackStatus) => {
-        this.playbackStatus = playbackStatus;
+    private loadSound = async () => {
+        await this.soundObject.loadAsync(require('_sound/cat.mp3'));
     };
 
-    private checkIsPointerOutOfElement = (gestureState) => {
-        const {moveX, moveY} = gestureState;
-        const {startXPosition, startYPosition, endXPosition, endYPosition} = this.positions;
+    private getElementPosition = () => {
+        this.positions = getElementPosition(this.component);
+    };
 
-        return moveX < startXPosition || moveX > endXPosition ||
-            moveY < startYPosition || moveY > endYPosition
+    private startHidingPreloader = () => {
+        setTimeout(() => {
+            hidePreloader();
+        }, 500);
     };
 }
 

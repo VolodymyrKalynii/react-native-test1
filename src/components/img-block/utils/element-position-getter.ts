@@ -1,4 +1,6 @@
-export const getElementPosition = (component) => {
+import {Positions} from '../types';
+
+export const getElementPosition = (component):Positions => {
     const positions = {
         startXPosition: null,
         startYPosition: null,

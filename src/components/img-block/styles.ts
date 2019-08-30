@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     img: {
-        // backgroundColor: 'red',
+        backgroundColor: 'red',
         width: Dimensions.get('window').width / 1.1,
-        height: Dimensions.get('window').height /  1.2
+        height: Dimensions.get('window').height /  1.5
     }
 });
