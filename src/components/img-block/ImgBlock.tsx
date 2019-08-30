@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import {Audio} from 'expo-av';
 
-import {hidePreloader} from '../../redux/dispatchers';
+import {hidePreloader} from 'red/dispatchers';
+import {getElementPosition} from './utils';
 import {styles} from './styles';
 
 import {PlaybackStatus} from 'expo-av/build/AV';
@@ -17,15 +18,17 @@ type Props = {};
 export class ImgBlock extends React.Component<Props> {
     private panResponder:PanResponderInstance;
     private playbackStatus:PlaybackStatus;
-    private startXPosition:number;
-    private startYPosition:number;
-    private endXPosition:number;
-    private endYPosition:number;
-    private myComponent:any;
+    private component:any;
     private readonly soundObject = new Audio.Sound();
     private userHangOffTouchTimeout = null;
     private soundDowningInterval = null;
     private isPausingStarted = false;
+    private positions = {
+        startXPosition: null,
+        startYPosition: null,
+        endXPosition: null,
+        endYPosition: null
+    };
 
     constructor(props) {
         super(props);
@@ -34,19 +37,52 @@ export class ImgBlock extends React.Component<Props> {
 
         this.panResponder = PanResponder.create({
             onStartShouldSetPanResponder: () => true,
-            onPanResponderMove: async (evt, gestureState) => {
-                const isPointerOutOfElement = this.checkIsPointerOutOfElement(gestureState);
-
-                // console.log(gestureState);
-
-                this.runCheckingUserHangOffTouch();
-
-                isPointerOutOfElement
-                    ? await this.pausePlaying()
-                    : await this.startPlaying();
-            },
+            onPanResponderMove: this.onPanResponderMove
         });
     }
+
+    render() {
+        return <View style={styles.container}>
+            <Image
+                style={styles.img}
+                resizeMode='contain'
+                {...this.panResponder.panHandlers}
+                ref={view => {
+                    this.component = view;
+                }}
+                source={require('_img/cat.png')}/>
+        </View>;
+    }
+
+    async componentDidMount() {
+        await this.loadSound();
+        this.getElementPosition();
+        this.startHidingPreloader();
+    };
+
+    private loadSound = async () => {
+        await this.soundObject.loadAsync(require('_sound/cat.mp3'));
+    };
+
+    private getElementPosition = () => {
+        this.positions = getElementPosition(this.component);
+    };
+
+    private startHidingPreloader = () => {
+        setTimeout(() => {
+            hidePreloader();
+        }, 500);
+    };
+
+    private onPanResponderMove = async (evt, gestureState) => {
+        const isPointerOutOfElement = this.checkIsPointerOutOfElement(gestureState);
+
+        this.runCheckingUserHangOffTouch();
+
+        isPointerOutOfElement
+            ? await this.pausePlaying()
+            : await this.startPlaying();
+    };
 
     private runCheckingUserHangOffTouch = () => {
         if (this.userHangOffTouchTimeout)
@@ -73,7 +109,6 @@ export class ImgBlock extends React.Component<Props> {
         }, 500);
 
         this.isPausingStarted = true;
-
     };
 
     private getNewVolume = () => {
@@ -113,43 +148,11 @@ export class ImgBlock extends React.Component<Props> {
 
     private checkIsPointerOutOfElement = (gestureState) => {
         const {moveX, moveY} = gestureState;
+        const {startXPosition, startYPosition, endXPosition, endYPosition} = this.positions;
 
-        return moveX < this.startXPosition || moveX > this.endXPosition ||
-            moveY < this.startYPosition || moveY > this.endYPosition
+        return moveX < startXPosition || moveX > endXPosition ||
+            moveY < startYPosition || moveY > endYPosition
     };
-
-    async componentDidMount() {
-        await this.soundObject.loadAsync(require('../../sound/cat.mp3'));
-
-        this.getElementPosition();
-
-        setTimeout(() => {
-            hidePreloader();
-        }, 500);
-    };
-
-    private getElementPosition = () => {
-        this.myComponent.measure((fx, fy, width, height, px, py) => {
-            this.startXPosition = px;
-            this.startYPosition = py;
-
-            this.endXPosition = px + width;
-            this.endYPosition = py + height;
-        });
-    };
-
-    render() {
-        return <View style={styles.container}>
-            <Image
-                style={styles.img}
-                resizeMode='contain'
-                {...this.panResponder.panHandlers}
-                ref={view => {
-                    this.myComponent = view;
-                }}
-                source={require('../../img/cat.png')}/>
-        </View>;
-    }
 }
 
 
